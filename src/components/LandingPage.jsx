@@ -58,8 +58,8 @@ export default function LandingPage() {
 
   return (
     <div className="landing-container">
-      <h1>xTracker</h1>
-      <p>Welcome to your own Expense Tracker</p>
+      <h1>Mahitha's xTracker</h1>
+      <p>Welcome to your personal Expense Tracker</p>
       <p>Please fill in the below form to start tracking</p>
 
       <form
