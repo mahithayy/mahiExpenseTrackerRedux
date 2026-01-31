@@ -1,7 +1,11 @@
 import { useDispatch } from "react-redux";
-import { setFilter, resetUser } from "../slices/userSlice";
-import { clearTransactions } from "../slices/transactionSlice";
-import { clearExpenses } from "../slices/expenseSlice";
+import {
+  updateActiveFilter,
+  resetAllBudget
+} from "../redux/userSlice";
+import { removeAllTransactions } from "../redux/transactionSlice";
+import { resetAllExpense } from "../redux/expenseSlice";
+
 import { useNavigate } from "react-router-dom";
 
 import ExpenseForm from "./ExpenseForm";
@@ -13,9 +17,10 @@ export default function TrackerPage() {
   const navigate = useNavigate();
 
   const handleClear = () => {
-    dispatch(resetUser());
-    dispatch(clearTransactions());
-    dispatch(clearExpenses());
+    dispatch(resetAllBudget());
+dispatch(removeAllTransactions());
+dispatch(resetAllExpense());
+
     navigate("/"); // go back to landing page
   };
 
@@ -25,8 +30,9 @@ export default function TrackerPage() {
 
       {/* Filter Pills */}
       <div>
-        {["ALL", "food", "travel", "entertainment", "other"].map((f) => (
-          <button key={f} onClick={() => dispatch(setFilter(f))}>
+        {["all", "food", "travel", "entertainment", "others"].map((f) => (
+          <button key={f} onClick={() => dispatch(updateActiveFilter(f))}
+          >
             {f}
           </button>
         ))}
@@ -35,6 +41,9 @@ export default function TrackerPage() {
       {/* Start New Tracker */}
       <div className="button-row">
 
+      <button id="new-update">
+  Update budget
+</button>
 
   <button
     id="clear"

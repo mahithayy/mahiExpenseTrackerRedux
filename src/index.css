@@ -1,71 +1,71 @@
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 600px;
-  margin: 40px auto;
-}
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 600px;
+    margin: 40px auto;
+  }
 
-label {
-  font-weight: 600;
-}
+  label {
+    font-weight: 600;
+  }
 
-input,
-select {
-  padding: 8px;
-  font-size: 14px;
-}
+  input,
+  select {
+    padding: 8px;
+    font-size: 14px;
+  }
 
-button {
-  width: fit-content;
-  padding: 8px 16px;
-  cursor: pointer;
-}
-form[name="landing-page-form"] {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
+  button {
+    width: fit-content;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  form[name="landing-page-form"] {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
 
-form[name="landing-page-form"] button {
-  grid-column: span 3;
-}
-.landing-container {
-  max-width: 900px;
-  margin: 40px auto;
-  text-align: center;
-}
+  form[name="landing-page-form"] button {
+    grid-column: span 3;
+  }
+  .landing-container {
+    max-width: 900px;
+    margin: 40px auto;
+    text-align: center;
+  }
 
-.field-row {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin: 10px 0;
-}
+  .field-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 10px 0;
+  }
 
-.section-title {
-  margin-top: 20px;
-  font-weight: 600;
-}
+  .section-title {
+    margin-top: 20px;
+    font-weight: 600;
+  }
 
-.budget-table {
-  margin: 20px auto;
-  border-collapse: collapse;
-}
+  .budget-table {
+    margin: 20px auto;
+    border-collapse: collapse;
+  }
 
-.budget-table th,
-.budget-table td {
-  border: 1px solid #333;
-  padding: 10px 20px;
-}
+  .budget-table th,
+  .budget-table td {
+    border: 1px solid #333;
+    padding: 10px 20px;
+  }
 
-.budget-table input {
-  width: 120px;
-}
+  .budget-table input {
+    width: 120px;
+  }
 
-.button-row {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 20px;
-}
+  .button-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+  }

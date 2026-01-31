@@ -1,5 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addTransaction } from "../slices/transactionSlice";
+
+import { addTransactionEntry } from "../redux/transactionSlice";
+import {
+  updateTotalExpense,
+  updateCategoricalExpense
+} from "../redux/expenseSlice";
+
 import { toast } from "react-toastify";
 
 export default function ExpenseForm() {
@@ -7,11 +13,12 @@ export default function ExpenseForm() {
 
   // Read budgets & current expenses from Redux
   const categoryBudgets = useSelector(
-    (state) => state.user.categoryBudgets
+    (state) => state.user.categoricalBudget
   );
   const categoryExpenses = useSelector(
-    (state) => state.expenses.categoryExpenses
+    (state) => state.expense.categoricalExpense
   );
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,8 +33,8 @@ export default function ExpenseForm() {
     }
 
     // CORE LOGIC: budget exceed check
-    const currentExpense = categoryExpenses[category];
-    const budget = categoryBudgets[category];
+    const currentExpense = categoryExpenses[category] ||0;
+    const budget = categoryBudgets[category] ||0;
 
     if (currentExpense + amount > budget) {
       const confirmAdd = window.confirm(
@@ -42,36 +49,62 @@ export default function ExpenseForm() {
 
     // Dispatch transaction
     dispatch(
-      addTransaction({
+      addTransactionEntry({
+        id: Date.now().toString(),
         name,
         category,
         amount
       })
     );
 
+    dispatch(
+      updateTotalExpense({
+        amount,
+        operation: "add"
+      })
+    );
+
+    dispatch(
+      updateCategoricalExpense({
+        category,
+        amount,
+        operation: "add"
+      })
+    );
+
+
     toast.success("Expense added successfully");
     e.target.reset();
   };
 
   return (
-    <form id="expense-form1" onSubmit={handleSubmit}>
-      <div id="title">New Expense Form</div>
+    <form
+  id="expense-form1"
+  className="expense-form1"
+  onSubmit={handleSubmit}
+>
 
-      <label htmlFor="expense-name">Expense Name</label>
-      <input id="expense-name" />
+      <div className="title">New Expense Form</div>
 
-      <label htmlFor="category-select">Category</label>
-      <select id="category-select">
-        <option value="food">Food</option>
-        <option value="travel">Travel</option>
-        <option value="entertainment">Entertainment</option>
-        <option value="other">Other</option>
-      </select>
+      <label htmlFor="expense-name">Expense Name:</label>
+      <input id="expense-name" name="expense-name"/>
 
-      <label htmlFor="expense-amount">Amount</label>
-      <input id="expense-amount" type="number" />
+      <label htmlFor="category-select">Select category:</label>
+      <select id="category-select" name="category-select" defaultValue="">
+  <option value="" >
+    Select category
+  </option>
+  <option value="food">Food</option>
+  <option value="travel">Travel</option>
+  <option value="entertainment">Entertainment</option>
+  <option value="others">Others</option>
+</select>
 
-      <button type="submit">Add Expense</button>
+
+      <label htmlFor="expense-amount">Expense Amount:</label>
+      <input id="expense-amount" type="number" name="expense-amount"/>
+
+      <button type="submit">Submit</button>
     </form>
   );
 }

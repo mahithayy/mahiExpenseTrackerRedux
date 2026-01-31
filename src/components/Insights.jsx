@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 
 export default function Insights() {
-  const { categoryBudgets } = useSelector((s) => s.user);
-  const { categoryExpenses } = useSelector((s) => s.expenses);
+  const { categoricalBudget } = useSelector((s) => s.user);
+const { categoricalExpense } = useSelector((s) => s.expense);
 
-  const categories = Object.keys(categoryBudgets);
+
+  const categories = Object.keys(categoricalBudget);
 
   return (
     <table border="1">
@@ -19,8 +20,8 @@ export default function Insights() {
       </thead>
       <tbody>
         {categories.map((cat) => {
-          const budget = categoryBudgets[cat];
-          const expense = categoryExpenses[cat];
+          const budget = categoricalBudget[cat];
+          const expense = categoricalExpense[cat];
           const balance = budget - expense;
           const status = balance >= 0 ? "Within Limit" : "Exceeded";
 

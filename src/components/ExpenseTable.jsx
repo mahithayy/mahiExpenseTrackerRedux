@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTransaction } from "../slices/transactionSlice";
+import { removeTransactionEntry } from "../redux/transactionSlice";
+import {
+  updateTotalExpense,
+  updateCategoricalExpense
+} from "../redux/expenseSlice";
+
 import { toast } from "react-toastify";
 
 export default function ExpenseTable() {
@@ -9,10 +14,11 @@ export default function ExpenseTable() {
     (state) => state.transactions.transactionList
   );
 
-  const filter = useSelector((state) => state.user.selectedFilter);
+  //const filter = useSelector((state) => state.user.selectedFilter);
+  const filter = useSelector((state) => state.user.activeFilter);
 
   const filteredTransactions =
-    filter === "ALL"
+    filter === "all"
       ? transactions
       : transactions.filter((t) => t.category === filter);
 
@@ -20,7 +26,26 @@ export default function ExpenseTable() {
     const ok = window.confirm("Are you sure you want to delete?");
     if (!ok) return;
 
-    dispatch(deleteTransaction(id));
+    //dispatch(deleteTransaction(id));
+    const tx = transactions.find((t) => t.id === id);
+
+dispatch(removeTransactionEntry(id));
+
+dispatch(
+  updateTotalExpense({
+    amount: tx.amount,
+    operation: "subtract"
+  })
+);
+
+dispatch(
+  updateCategoricalExpense({
+    category: tx.category,
+    amount: tx.amount,
+    operation: "subtract"
+  })
+);
+
     toast.warn("Transaction deleted");
   };
 
